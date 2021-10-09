@@ -5,6 +5,7 @@ import 'package:tui/models/stress.dart';
 
 class TemporaryStress extends ChangeNotifier {
   final Stress stress = Stress('', '');
+  bool isError = false;
 
   void setStressTitle(String text) {
     stress.title = text;
@@ -16,8 +17,13 @@ class TemporaryStress extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resetStress() {
+  void changeIsError() {
+    isError = !isError;
+  }
+
+  void reset() {
     stress.title = '';
     stress.category = '';
+    isError = false;
   }
 }
