@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final animatedStateProvider = ChangeNotifierProvider((ref) => AnimatedState());
 
 class AnimatedState extends ChangeNotifier {
-  int radius = 0;
+  double radius = 0.0;
 
-  void setRadius(int newRadius) {
+  void setRadius(double newRadius) {
     radius = newRadius;
     notifyListeners();
   }
