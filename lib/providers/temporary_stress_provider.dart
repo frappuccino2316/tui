@@ -20,6 +20,14 @@ class TemporaryStress extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool checkEnteredTitleAndCategory() {
+    if (stress.title != '' && stress.category != '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void changeIsError() {
     isError = !isError;
   }
