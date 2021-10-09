@@ -27,8 +27,7 @@ class StressPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 400.0,
+          Flexible(
             child: ListView.builder(
               itemCount: stresses.stressList.length,
               itemBuilder: (BuildContext context, int index) {
@@ -37,29 +36,30 @@ class StressPage extends ConsumerWidget {
               },
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  animatedState
-                      .setRadian(animatedState.radian + (3.141592 * 2));
-                  animatedState.setP(0.5);
-                  animatedState.setPosition(500);
-                },
-                child: const Text('吹き飛ばす！！'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  stresses.resetStress();
-                  animatedState.setRadian(0.0);
-                  animatedState.setP(1);
-                  animatedState.setPosition(0);
-                },
-                child: const Text('リセット'),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     ElevatedButton(
+          //       onPressed: () {
+          //         animatedState.setRadian(animatedState.radian + 3.141592);
+          //         animatedState.setP(0.25);
+          //         animatedState.setHorizonPosition(600);
+          //         animatedState.setVerticalPosition(700);
+          //       },
+          //       child: const Text('吹き飛ばす！！'),
+          //     ),
+          //     ElevatedButton(
+          //       onPressed: () {
+          //         // stresses.resetStress();
+          //         animatedState.setRadian(0.0);
+          //         animatedState.setP(1);
+          //         animatedState.setHorizonPosition(0);
+          //         animatedState.setVerticalPosition(0);
+          //       },
+          //       child: const Text('リセット'),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -74,6 +74,32 @@ class StressPage extends ConsumerWidget {
         tooltip: '追加',
         child: const Icon(Icons.add),
         key: const Key('addButton'),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                animatedState.setRadian(animatedState.radian + 3.141592);
+                animatedState.setP(0.25);
+                animatedState.setHorizonPosition(600);
+                animatedState.setVerticalPosition(700);
+              },
+              child: const Text('吹き飛ばす！！'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // stresses.resetStress();
+                animatedState.setRadian(0.0);
+                animatedState.setP(1);
+                animatedState.setHorizonPosition(0);
+                animatedState.setVerticalPosition(0);
+              },
+              child: const Text('リセット'),
+            ),
+          ],
+        ),
       ),
     );
   }

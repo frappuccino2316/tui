@@ -21,17 +21,19 @@ class StressCard extends ConsumerWidget {
     final animatedState = watch(animatedStateProvider);
 
     return AnimatedContainer(
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
       transform: Matrix4.translationValues(
-          animatedState.position, animatedState.position, 0),
+          animatedState.getHorizonPositionByIndex(index),
+          animatedState.getVerticalPositionByIndex(index),
+          0),
       curve: Curves.bounceInOut,
       child: AnimatedContainer(
         duration: const Duration(seconds: 3),
         transform: Matrix4.diagonal3Values(animatedState.p, animatedState.p, 1),
         curve: Curves.bounceOut,
         child: AnimatedContainer(
-          duration: const Duration(seconds: 3),
-          transform: Matrix4.rotationZ(animatedState.radian),
+          duration: const Duration(seconds: 6),
+          transform: Matrix4.rotationZ(animatedState.getRadianByIndex(index)),
           curve: Curves.bounceIn,
           child: Card(
             child: Container(
