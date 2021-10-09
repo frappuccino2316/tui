@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,30 +34,6 @@ class StressPage extends ConsumerWidget {
               },
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     ElevatedButton(
-          //       onPressed: () {
-          //         animatedState.setRadian(animatedState.radian + 3.141592);
-          //         animatedState.setP(0.25);
-          //         animatedState.setHorizonPosition(600);
-          //         animatedState.setVerticalPosition(700);
-          //       },
-          //       child: const Text('吹き飛ばす！！'),
-          //     ),
-          //     ElevatedButton(
-          //       onPressed: () {
-          //         // stresses.resetStress();
-          //         animatedState.setRadian(0.0);
-          //         animatedState.setP(1);
-          //         animatedState.setHorizonPosition(0);
-          //         animatedState.setVerticalPosition(0);
-          //       },
-          //       child: const Text('リセット'),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
