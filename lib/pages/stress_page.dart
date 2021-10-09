@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:tui/components/stress_card.dart';
 import 'package:tui/providers/stress_list_provider.dart';
+import 'package:tui/providers/temporary_stress_provider.dart';
 import 'package:tui/models/stress.dart';
 import 'package:tui/pages/add_stress_page.dart';
 
@@ -13,6 +14,7 @@ class StressPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final stresses = watch(stressProvider);
+    final temporaryStress = watch(temporaryStressProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,6 +33,7 @@ class StressPage extends ConsumerWidget {
           if (stress != null) {
             stresses.addStress(stress);
           }
+          temporaryStress.reset();
         },
         tooltip: '追加',
         child: const Icon(Icons.add),
@@ -43,19 +46,18 @@ class StressPage extends ConsumerWidget {
     print('selected!');
   }
 
-  // void popUpMenuSelected(BuildContext context, String selected, int index,
-  //     Wish originalWish, ScopedReader watch) async {
-  //   final wishes = watch(wishListProvider);
-
+  // void popUpMenuSelected(
+  //     BuildContext context, String selected, int index) async {
   //   switch (selected) {
   //     case '編集':
-  //       final Wish? wish = await Navigator.of(context).push(MaterialPageRoute(
+  //       final Stress? wish = await Navigator.of(context).push(MaterialPageRoute(
   //           builder: (context) => EditWishPage(originalWish)));
   //       if (wish != null) {
   //         _wishRepository.editWish(originalWish.key, wish);
   //         wishes.editWishInWishList(index, wish);
   //       }
   //       break;
+
   //     case '削除':
   //       showDialog(
   //           context: context,
