@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:tui/models/stress.dart';
 
+final temporaryStressProvider =
+    ChangeNotifierProvider((ref) => TemporaryStress());
+
 class TemporaryStress extends ChangeNotifier {
   final Stress stress = Stress('', '');
   bool isError = false;
