@@ -28,6 +28,7 @@ class StressCard extends ConsumerWidget {
             stress.title,
             key: const Key('stressTitle'),
           ),
+          subtitle: Text(stress.category),
           trailing: PopupMenuButton<String>(
             onSelected: (String selected) {
               popUpMenuSelected(context, selected, index, stress, stressList,
