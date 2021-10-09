@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tui/components/stress_card.dart';
 import 'package:tui/providers/stress_list_provider.dart';
 import 'package:tui/providers/temporary_stress_provider.dart';
+import 'package:tui/providers/animated_state_provider.dart';
 import 'package:tui/models/stress.dart';
 import 'package:tui/pages/add_stress_page.dart';
 import 'package:tui/pages/edit_stress_page.dart';
@@ -16,17 +17,31 @@ class StressPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final stresses = watch(stressProvider);
     final temporaryStress = watch(temporaryStressProvider);
+    final animatedState = watch(animatedStateProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('ストレス一覧'),
       ),
-      body: ListView.builder(
-          itemCount: stresses.stressList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return StressCard(
-                stresses.stressList[index], index, popUpMenuSelected);
-          }),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 400.0,
+            child: ListView.builder(
+              itemCount: stresses.stressList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return StressCard(
+                    stresses.stressList[index], index, popUpMenuSelected);
+              },
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () =>
+                animatedState.setRadius(animatedState.radius + 10.0),
+            child: const Text('吹き飛ばす！！'),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final Stress? stress = await Navigator.of(context).push(
