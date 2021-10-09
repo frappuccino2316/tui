@@ -30,11 +30,13 @@ class TemporaryStress extends ChangeNotifier {
 
   void setTrueIntoIsError() {
     isError = true;
+    notifyListeners();
   }
 
   void reset() {
     stress.title = '';
     stress.category = '';
     isError = false;
+    notifyListeners();
   }
 }
