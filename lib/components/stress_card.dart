@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:tui/models/stress.dart';
+import 'package:tui/providers/stress_list_provider.dart';
+import 'package:tui/providers/temporary_stress_provider.dart';
 
 @immutable
 class StressCard extends ConsumerWidget {
@@ -13,6 +15,9 @@ class StressCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final stressList = watch(stressProvider);
+    final temporaryStress = watch(temporaryStressProvider);
+
     return Card(
       child: Container(
         decoration: BoxDecoration(
@@ -25,7 +30,8 @@ class StressCard extends ConsumerWidget {
           ),
           trailing: PopupMenuButton<String>(
             onSelected: (String selected) {
-              popUpMenuSelected(context, selected, index, stress, watch);
+              popUpMenuSelected(context, selected, index, stress, stressList,
+                  temporaryStress);
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuEntry<String>>[

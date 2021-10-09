@@ -6,6 +6,7 @@ import 'package:tui/providers/stress_list_provider.dart';
 import 'package:tui/providers/temporary_stress_provider.dart';
 import 'package:tui/models/stress.dart';
 import 'package:tui/pages/add_stress_page.dart';
+import 'package:tui/pages/edit_stress_page.dart';
 
 @immutable
 class StressPage extends ConsumerWidget {
@@ -42,44 +43,45 @@ class StressPage extends ConsumerWidget {
     );
   }
 
-  void popUpMenuSelected(BuildContext context, String selected, int index) {
-    print('selected!');
+  void popUpMenuSelected(
+      BuildContext context,
+      String selected,
+      int index,
+      Stress stress,
+      StressList stressList,
+      TemporaryStress temporaryStress) async {
+    switch (selected) {
+      case '編集':
+        final Stress? editedStress = await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => EditStressPage(stress, temporaryStress)));
+        if (editedStress != null) {
+          stressList.editStress(editedStress, index);
+        }
+        break;
+
+      case '削除':
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text(stress.title),
+                  content: Text(stress.category),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
+                      onPressed: () {
+                        stressList.deleteStress(index);
+                        temporaryStress.reset();
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ));
+        break;
+
+      default:
+        break;
+    }
   }
-
-  // void popUpMenuSelected(
-  //     BuildContext context, String selected, int index) async {
-  //   switch (selected) {
-  //     case '編集':
-  //       final Stress? wish = await Navigator.of(context).push(MaterialPageRoute(
-  //           builder: (context) => EditWishPage(originalWish)));
-  //       if (wish != null) {
-  //         _wishRepository.editWish(originalWish.key, wish);
-  //         wishes.editWishInWishList(index, wish);
-  //       }
-  //       break;
-
-  //     case '削除':
-  //       showDialog(
-  //           context: context,
-  //           builder: (BuildContext context) => AlertDialog(
-  //                 title: Text(originalWish.title),
-  //                 content: Text(originalWish.description),
-  //                 actions: [
-  //                   IconButton(
-  //                     icon: const Icon(Icons.delete),
-  //                     color: Colors.red,
-  //                     onPressed: () {
-  //                       _wishRepository.deleteWish(originalWish.key);
-  //                       wishes.deleteWish(index);
-  //                       Navigator.pop(context);
-  //                     },
-  //                   ),
-  //                 ],
-  //               ));
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // }
 }

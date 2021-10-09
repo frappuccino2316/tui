@@ -13,6 +13,12 @@ class StressList extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editStress(Stress editedStress, int index) {
+    stressList[index].title = editedStress.title;
+    stressList[index].category = editedStress.category;
+    notifyListeners();
+  }
+
   void deleteStress(int index) {
     stressList.removeAt(index);
     notifyListeners();
