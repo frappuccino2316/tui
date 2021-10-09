@@ -11,7 +11,8 @@ class StressCard extends ConsumerWidget {
   final int index;
   final Function popUpMenuSelected;
 
-  const StressCard(this.stress, this.index, this.popUpMenuSelected);
+  StressCard(this.stress, this.index, this.popUpMenuSelected);
+  // const StressCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
