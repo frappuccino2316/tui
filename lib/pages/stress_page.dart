@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,10 +37,28 @@ class StressPage extends ConsumerWidget {
               },
             ),
           ),
-          ElevatedButton(
-            onPressed: () =>
-                animatedState.setRadius(animatedState.radius + 10.0),
-            child: const Text('吹き飛ばす！！'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  animatedState
+                      .setRadian(animatedState.radian + (3.141592 * 2));
+                  animatedState.setP(0.5);
+                  animatedState.setPosition(500);
+                },
+                child: const Text('吹き飛ばす！！'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  stresses.resetStress();
+                  animatedState.setRadian(0.0);
+                  animatedState.setP(1);
+                  animatedState.setPosition(0);
+                },
+                child: const Text('リセット'),
+              ),
+            ],
           ),
         ],
       ),

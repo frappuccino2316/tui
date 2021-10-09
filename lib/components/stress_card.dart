@@ -21,39 +21,50 @@ class StressCard extends ConsumerWidget {
     final animatedState = watch(animatedStateProvider);
 
     return AnimatedContainer(
-      duration: const Duration(seconds: 10),
-      transform: Matrix4.rotationZ(animatedState.radius),
+      duration: const Duration(seconds: 3),
+      transform: Matrix4.translationValues(
+          animatedState.position, animatedState.position, 0),
       curve: Curves.bounceInOut,
-      child: Card(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 1.0, color: Colors.black),
-          ),
-          child: ListTile(
-            title: Text(
-              stress.title,
-              key: const Key('stressTitle'),
+      child: AnimatedContainer(
+        duration: const Duration(seconds: 3),
+        transform: Matrix4.diagonal3Values(animatedState.p, animatedState.p, 1),
+        curve: Curves.bounceOut,
+        child: AnimatedContainer(
+          duration: const Duration(seconds: 3),
+          transform: Matrix4.rotationZ(animatedState.radian),
+          curve: Curves.bounceIn,
+          child: Card(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 1.0, color: Colors.black),
+              ),
+              child: ListTile(
+                title: Text(
+                  stress.title,
+                  key: const Key('stressTitle'),
+                ),
+                subtitle: Text(stress.category),
+                trailing: PopupMenuButton<String>(
+                  onSelected: (String selected) {
+                    popUpMenuSelected(context, selected, index, stress,
+                        stressList, temporaryStress);
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return <PopupMenuEntry<String>>[
+                      const PopupMenuItem(
+                        child: Text('編集'),
+                        value: '編集',
+                      ),
+                      const PopupMenuItem(
+                        child: Text('削除'),
+                        value: '削除',
+                      ),
+                    ];
+                  },
+                ),
+                key: const Key('stressItem'),
+              ),
             ),
-            subtitle: Text(stress.category),
-            trailing: PopupMenuButton<String>(
-              onSelected: (String selected) {
-                popUpMenuSelected(context, selected, index, stress, stressList,
-                    temporaryStress);
-              },
-              itemBuilder: (BuildContext context) {
-                return <PopupMenuEntry<String>>[
-                  const PopupMenuItem(
-                    child: Text('編集'),
-                    value: '編集',
-                  ),
-                  const PopupMenuItem(
-                    child: Text('削除'),
-                    value: '削除',
-                  ),
-                ];
-              },
-            ),
-            key: const Key('stressItem'),
           ),
         ),
       ),
