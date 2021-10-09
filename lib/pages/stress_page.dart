@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tui/components/stress_card.dart';
 import 'package:tui/providers/stress_list_provider.dart';
 import 'package:tui/providers/temporary_stress_provider.dart';
+import 'package:tui/providers/animated_state_provider.dart';
 import 'package:tui/models/stress.dart';
 import 'package:tui/pages/add_stress_page.dart';
 import 'package:tui/pages/edit_stress_page.dart';
@@ -16,17 +17,25 @@ class StressPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final stresses = watch(stressProvider);
     final temporaryStress = watch(temporaryStressProvider);
+    final animatedState = watch(animatedStateProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('ストレス一覧'),
       ),
-      body: ListView.builder(
-          itemCount: stresses.stressList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return StressCard(
-                stresses.stressList[index], index, popUpMenuSelected);
-          }),
+      body: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+              itemCount: stresses.stressList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return StressCard(
+                    stresses.stressList[index], index, popUpMenuSelected);
+              },
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final Stress? stress = await Navigator.of(context).push(
@@ -39,6 +48,32 @@ class StressPage extends ConsumerWidget {
         tooltip: '追加',
         child: const Icon(Icons.add),
         key: const Key('addButton'),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                animatedState.setRadian(animatedState.radian + 3.141592);
+                animatedState.setP(0.25);
+                animatedState.setHorizonPosition(600);
+                animatedState.setVerticalPosition(700);
+              },
+              child: const Text('吹き飛ばす！！'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // stresses.resetStress();
+                animatedState.setRadian(0.0);
+                animatedState.setP(1);
+                animatedState.setHorizonPosition(0);
+                animatedState.setVerticalPosition(0);
+              },
+              child: const Text('リセット'),
+            ),
+          ],
+        ),
       ),
     );
   }

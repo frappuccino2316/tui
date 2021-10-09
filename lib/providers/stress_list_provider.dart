@@ -23,4 +23,9 @@ class StressList extends ChangeNotifier {
     stressList.removeAt(index);
     notifyListeners();
   }
+
+  void resetStress() {
+    stressList.clear();
+    notifyListeners();
+  }
 }
