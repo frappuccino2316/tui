@@ -28,8 +28,8 @@ class TemporaryStress extends ChangeNotifier {
     }
   }
 
-  void changeIsError() {
-    isError = !isError;
+  void setTrueIntoIsError() {
+    isError = true;
   }
 
   void reset() {
