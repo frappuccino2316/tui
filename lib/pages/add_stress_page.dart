@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tui/models/stress.dart';
 import 'package:tui/providers/temporary_stress_provider.dart';
 
+@immutable
 class AddStressPage extends ConsumerWidget {
+  const AddStressPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final addState = watch(temporaryStressProvider);

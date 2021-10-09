@@ -4,8 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tui/components/stress_card.dart';
 import 'package:tui/providers/stress_list_provider.dart';
 import 'package:tui/models/stress.dart';
+import 'package:tui/pages/add_stress_page.dart';
 
+@immutable
 class StressPage extends ConsumerWidget {
+  const StressPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final stresses = watch(stressProvider);
@@ -21,7 +25,13 @@ class StressPage extends ConsumerWidget {
                 stresses.stressList[index], index, popUpMenuSelected);
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print('test'),
+        onPressed: () async {
+          final Stress? stress = await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const AddStressPage()));
+          if (stress != null) {
+            stresses.addStress(stress);
+          }
+        },
         tooltip: '追加',
         child: const Icon(Icons.add),
         key: const Key('addButton'),
