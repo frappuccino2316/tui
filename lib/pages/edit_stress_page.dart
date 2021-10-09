@@ -41,7 +41,7 @@ class EditStressPage extends ConsumerWidget {
                 ),
                 if (_temporaryStress.isError) const Text('全て入力してください'),
                 ElevatedButton(
-                    child: const Text('追加'),
+                    child: const Text('更新'),
                     onPressed: () {
                       if (_temporaryStress.checkEnteredTitleAndCategory()) {
                         Navigator.pop(
