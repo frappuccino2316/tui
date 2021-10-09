@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:tui/components/stress_card.dart';
-import 'package:tui/providers/stress_provider.dart';
+import 'package:tui/providers/stress_list_provider.dart';
 import 'package:tui/models/stress.dart';
 
 class StressPage extends ConsumerWidget {
