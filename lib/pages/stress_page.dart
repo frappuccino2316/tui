@@ -54,7 +54,7 @@ class StressPage extends ConsumerWidget {
       case '編集':
         final Stress? editedStress = await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => EditStressPage(stress, temporaryStress)));
+                builder: (context) => EditStressPage(temporaryStress)));
         if (editedStress != null) {
           stressList.editStress(editedStress, index);
         }

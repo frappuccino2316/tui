@@ -6,10 +6,9 @@ import 'package:tui/providers/temporary_stress_provider.dart';
 
 @immutable
 class EditStressPage extends ConsumerWidget {
-  final Stress _stress;
   final TemporaryStress _temporaryStress;
 
-  const EditStressPage(this._stress, this._temporaryStress);
+  const EditStressPage(this._temporaryStress);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
