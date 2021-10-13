@@ -76,9 +76,6 @@ class StressPage extends ConsumerWidget {
                 animatedState.setP(0.25);
                 animatedState.setHorizonPosition(600);
                 animatedState.setVerticalPosition(700);
-                // sleep(const Duration(seconds: 5));
-                // stresses.resetStress();
-                // animatedState.resetAnimatedState();
               },
               child: const Text('吹き飛ばす！！'),
             ),
@@ -130,12 +127,5 @@ class StressPage extends ConsumerWidget {
       default:
         break;
     }
-  }
-
-  Future<List<Function>> waitFiveSeconds(
-      StressList stresses, AnimatedState animatedState) {
-    sleep(const Duration(seconds: 5));
-    return Future<List<Function>>.value(
-        [stresses.resetStress, animatedState.resetAnimatedState]);
   }
 }
