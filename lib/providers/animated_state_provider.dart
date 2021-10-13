@@ -6,8 +6,10 @@ final animatedStateProvider = ChangeNotifierProvider((ref) => AnimatedState());
 class AnimatedState extends ChangeNotifier {
   double radian = 0.0;
   double p = 1;
-  double horizonPosition = 0;
-  double verticalPosition = 0;
+  double horizonPosition = 0.0;
+  double verticalPosition = 0.0;
+  bool displayImage = false;
+  double imageOpasity = 0.0;
 
   double getRadianByIndex(int index) {
     if (index == 0) {
@@ -44,7 +46,7 @@ class AnimatedState extends ChangeNotifier {
 
   double getVerticalPositionByIndex(int index) {
     if (index == 0) {
-      return verticalPosition * 4 * -1;
+      return verticalPosition * 4;
     }
     if (index % 2 == 0) {
       return verticalPosition * index;
@@ -55,6 +57,26 @@ class AnimatedState extends ChangeNotifier {
 
   void setVerticalPosition(double newVerticalPosition) {
     verticalPosition = newVerticalPosition;
+    notifyListeners();
+  }
+
+  void changeDisplayImage() {
+    displayImage = !displayImage;
+    notifyListeners();
+  }
+
+  void setImageOpacity(double opasity) {
+    imageOpasity = opasity;
+    notifyListeners();
+  }
+
+  void resetAnimatedState() {
+    radian = 0.0;
+    p = 1;
+    horizonPosition = 0.0;
+    verticalPosition = 0.0;
+    displayImage = false;
+    imageOpasity = 0.0;
     notifyListeners();
   }
 }

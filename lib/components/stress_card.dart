@@ -16,7 +16,7 @@ class StressCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final stressList = watch(stressProvider);
+    final stresses = watch(stressProvider);
     final temporaryStress = watch(temporaryStressProvider);
     final animatedState = watch(animatedStateProvider);
 
@@ -32,9 +32,13 @@ class StressCard extends ConsumerWidget {
         transform: Matrix4.diagonal3Values(animatedState.p, animatedState.p, 1),
         curve: Curves.bounceOut,
         child: AnimatedContainer(
-          duration: const Duration(seconds: 6),
+          duration: const Duration(seconds: 5),
           transform: Matrix4.rotationZ(animatedState.getRadianByIndex(index)),
           curve: Curves.bounceIn,
+          onEnd: () {
+            stresses.resetStress();
+            animatedState.resetAnimatedState();
+          },
           child: Card(
             child: Container(
               decoration: BoxDecoration(
@@ -49,7 +53,7 @@ class StressCard extends ConsumerWidget {
                 trailing: PopupMenuButton<String>(
                   onSelected: (String selected) {
                     popUpMenuSelected(context, selected, index, stress,
-                        stressList, temporaryStress);
+                        stresses, temporaryStress);
                   },
                   itemBuilder: (BuildContext context) {
                     return <PopupMenuEntry<String>>[
