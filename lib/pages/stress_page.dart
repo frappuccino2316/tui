@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,12 +27,27 @@ class StressPage extends ConsumerWidget {
       body: Column(
         children: [
           Flexible(
-            child: ListView.builder(
-              itemCount: stresses.stressList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return StressCard(
-                    stresses.stressList[index], index, popUpMenuSelected);
-              },
+            child: Stack(
+              children: [
+                ListView.builder(
+                  itemCount: stresses.stressList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return StressCard(
+                        stresses.stressList[index], index, popUpMenuSelected);
+                  },
+                ),
+                AnimatedOpacity(
+                  duration: const Duration(seconds: 1),
+                  opacity: animatedState.imageOpasity,
+                  child: Center(
+                    child: SizedBox(
+                      height: 280,
+                      width: 280,
+                      child: Image.asset('images/tornado.png'),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -55,22 +71,16 @@ class StressPage extends ConsumerWidget {
           children: [
             ElevatedButton(
               onPressed: () {
+                animatedState.setImageOpacity(1.0);
                 animatedState.setRadian(animatedState.radian + 3.141592);
                 animatedState.setP(0.25);
                 animatedState.setHorizonPosition(600);
                 animatedState.setVerticalPosition(700);
+                sleep(const Duration(seconds: 5));
+                stresses.resetStress();
+                animatedState.resetAnimatedState();
               },
               child: const Text('吹き飛ばす！！'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // stresses.resetStress();
-                animatedState.setRadian(0.0);
-                animatedState.setP(1);
-                animatedState.setHorizonPosition(0);
-                animatedState.setVerticalPosition(0);
-              },
-              child: const Text('リセット'),
             ),
           ],
         ),
