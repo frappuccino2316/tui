@@ -70,15 +70,15 @@ class StressPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 animatedState.setImageOpacity(1.0);
                 animatedState.setRadian(animatedState.radian + 3.141592);
                 animatedState.setP(0.25);
                 animatedState.setHorizonPosition(600);
                 animatedState.setVerticalPosition(700);
-                sleep(const Duration(seconds: 5));
-                stresses.resetStress();
-                animatedState.resetAnimatedState();
+                // sleep(const Duration(seconds: 5));
+                // stresses.resetStress();
+                // animatedState.resetAnimatedState();
               },
               child: const Text('吹き飛ばす！！'),
             ),
@@ -130,5 +130,12 @@ class StressPage extends ConsumerWidget {
       default:
         break;
     }
+  }
+
+  Future<List<Function>> waitFiveSeconds(
+      StressList stresses, AnimatedState animatedState) {
+    sleep(const Duration(seconds: 5));
+    return Future<List<Function>>.value(
+        [stresses.resetStress, animatedState.resetAnimatedState]);
   }
 }
